@@ -1,10 +1,12 @@
+BetterRandomAgent on openSearch
 1st: 631
 2nd: -660
 3rd:-230
 
-tinyMaze for randomAgent:
+tinyMaze for RandomAgent:
+(below is the score for randomAgent on tinyMaze)
 354, 488, 
 Keeps going to random positions, never get stuck and eventually get to the food. Time needed to get food varies. The agent pauses quite often. 
 
-mediumMaze for randomAgent:
+mediumMaze for RandomAgent:
 MediumMaze is a lot bigger and more complicated. The food is really far from the agent at the initial state. The agent pauses quite often. 
