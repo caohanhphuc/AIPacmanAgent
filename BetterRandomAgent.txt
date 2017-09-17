@@ -1,0 +1,2 @@
+description: behaves similar to the RandomAgent except the BetterRandomAgent does not pause at all. 
+It took less time for the agent to get to the food. 
