@@ -24,7 +24,19 @@ class RandomAgent (Agent):
 		"The agent receives a GameState (defined in pacman.py). "
 		print "Location: ", state.getPacmanPosition()
 		actionList = state.getLegalPacmanActions()
-		actionList.remove(Directions.STOP);
+		print "Actions availvale: ", actionList
+		action = random.choice(actionList)
+		print "Going ", action
+		return action
+
+class BetterRandomAgent (Agent): 
+	"An agent that acts on random actions. "
+	
+	def getAction(self, state):
+		"The agent receives a GameState (defined in pacman.py). "
+		print "Location: ", state.getPacmanPosition()
+		actionList = state.getLegalPacmanActions()
+		actionList.remove(Directions.STOP)
 		print "Actions availvale: ", actionList
 		action = random.choice(actionList)
 		print "Going ", action
