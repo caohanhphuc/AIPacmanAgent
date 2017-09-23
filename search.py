@@ -86,7 +86,30 @@ def depthFirstSearch(problem):
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
-    "*** YOUR CODE HERE ***"
+    stack = Stack()
+    explored = []
+
+    #implement DFS
+
+    head = Node(problem.getStartState(), None)
+
+    stack.push(head)
+
+    while (!stack.isEmpty()):
+        top = stack.pop()
+        if (problem.isGoalState(top.currentState))
+            return top.action
+        explored.add(top.currentState)
+        stack.push(top)
+        childList = problem.getSuccesors(top)
+        for child in childList:
+            #push children into list 
+
+
+    print "Start:", problem.getStartState()
+    print "Is the start a goal?", problem.isGoalState(problem.getStartState())
+    print "Start's successors:", problem.getSuccessors(problem.getStartState())
+
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
