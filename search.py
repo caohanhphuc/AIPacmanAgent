@@ -18,6 +18,9 @@ Pacman agents (in searchAgents.py).
 """
 
 import util
+from util import *
+from Node import Node
+import List
 
 class SearchProblem:
     """
@@ -91,19 +94,22 @@ def depthFirstSearch(problem):
 
     #implement DFS
 
-    head = Node(problem.getStartState(), None)
+    head = Node(problem.getStartState(), List(), None)
 
     stack.push(head)
 
-    while (!stack.isEmpty()):
+    while (stack.isEmpty() == False):
         top = stack.pop()
-        if (problem.isGoalState(top.currentState))
+        if (problem.isGoalState(top.currentState)):
             return top.action
-        explored.add(top.currentState)
+        explored.append(top.currentState)
         stack.push(top)
-        childList = problem.getSuccesors(top)
+        childList = problem.getSuccessors(top.currentState)
         for child in childList:
             #push children into list 
+            childState = child[0]
+            if not childState in explored:
+                stack.push(Node(childState, top.action.append(child[1]), top.currentState))
 
 
     print "Start:", problem.getStartState()
