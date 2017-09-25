@@ -20,7 +20,7 @@ Pacman agents (in searchAgents.py).
 import util
 from util import *
 from Node import Node
-import List
+import copy
 
 class SearchProblem:
     """
@@ -94,33 +94,49 @@ def depthFirstSearch(problem):
 
     #implement DFS
 
-    head = Node(problem.getStartState(), List(), None)
+    head = Node(problem.getStartState(), list(), None, None)
 
     stack.push(head)
 
     while (stack.isEmpty() == False):
         top = stack.pop()
-        if (problem.isGoalState(top.currentState)):
+        if (problem.isGoalState(top.currentState) == True):
             return top.action
         explored.append(top.currentState)
-        stack.push(top)
         childList = problem.getSuccessors(top.currentState)
         for child in childList:
-            #push children into list 
             childState = child[0]
             if not childState in explored:
-                stack.push(Node(childState, top.action.append(child[1]), top.currentState))
-
-
-    print "Start:", problem.getStartState()
-    print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-    print "Start's successors:", problem.getSuccessors(problem.getStartState())
+                actionList = copy.deepcopy(top.action)
+                actionList.append(child[1])
+                stack.push(Node(childState, actionList, top, child[2]))
 
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
+    queue = Queue()
+    explored = []
+
+    #implement BFS
+
+    head = Node(problem.getStartState(), list(), None, None)
+
+    queue.push(head)
+
+    while (queue.isEmpty() == False):
+        top = queue.pop()
+        if (problem.isGoalState(top.currentState) == True):
+            return top.action
+        explored.append(top.currentState)
+        childList = problem.getSuccessors(top.currentState)
+        for child in childList:
+            childState = child[0]
+            if not childState in explored:
+                actionList = copy.deepcopy(top.action)
+                actionList.append(child[1])
+                queue.push(Node(childState, actionList, top, child[2]))
+
     util.raiseNotDefined()
 
 def uniformCostSearch(problem):
