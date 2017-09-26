@@ -1,3 +1,8 @@
+import util
+from util import *
+from Node import Node
+import copy
+
 def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first.
