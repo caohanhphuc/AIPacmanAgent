@@ -94,7 +94,7 @@ def depthFirstSearch(problem):
 
     #implement DFS
 
-    head = Node(problem.getStartState(), list(), None, None)
+    head = Node(problem.getStartState(), list(), None, 0, 0)
 
     stack.push(head)
 
@@ -109,7 +109,8 @@ def depthFirstSearch(problem):
             if not childState in explored:
                 actionList = copy.deepcopy(top.action)
                 actionList.append(child[1])
-                stack.push(Node(childState, actionList, top, child[2]))
+                currentPcost = top.stepCost + child[2]
+                stack.push(Node(childState, actionList, top, child[2], currentPcost))
 
     util.raiseNotDefined()
 
@@ -120,7 +121,7 @@ def breadthFirstSearch(problem):
 
     #implement BFS
 
-    head = Node(problem.getStartState(), list(), None, None)
+    head = Node(problem.getStartState(), list(), None, 0, 0)
 
     queue.push(head)
 
@@ -135,13 +136,31 @@ def breadthFirstSearch(problem):
             if not childState in explored:
                 actionList = copy.deepcopy(top.action)
                 actionList.append(child[1])
-                queue.push(Node(childState, actionList, top, child[2]))
+                currentPcost = top.stepCost + child[2]
+                queue.push(Node(childState, actionList, top, child[2], currentPcost))
 
     util.raiseNotDefined()
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
+    pQueue = PriorityQueue();
+    explored = []
+    head = Node(problem.getStartState(), list(), None, 0, 0)
+    pQueue.push(head, 0)
+
+    while (pQueue.isEmpty() == False):
+    	top = pQueue.pop()
+    	if (problem.isGoalState(top.currentState) == True):
+    		return top.action
+    	explored.append(top.currentState)
+    	childList = problem.getSuccessors(top.currentState)
+    	for child in childList:
+    		childState = child[0]
+    		if not childState in explored:
+    			actionList = copy.deepcopy(top.action)
+    			actionList.append(child[1])
+    			currentPcost = top.stepCost + child[2]
+    			pQueue.push(Node(childState, actionList, top, child[2], currentPcost), currentPcost)
     util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
@@ -153,7 +172,25 @@ def nullHeuristic(state, problem=None):
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
-    "*** YOUR CODE HERE ***"
+    pQueue = PriorityQueue();
+    explored = []
+    head = Node(problem.getStartState(), list(), None, 0, heuristic(problem.getStartState(), problem))
+    pQueue.push(head, heuristic(problem.getStartState(), problem))
+
+    while (pQueue.isEmpty() == False):
+    	top = pQueue.pop()
+    	if (problem.isGoalState(top.currentState) == True):
+    		return top.action
+    	explored.append(top.currentState)
+    	childList = problem.getSuccessors(top.currentState)
+    	for child in childList:
+    		childState = child[0]
+    		if not childState in explored:
+    			actionList = copy.deepcopy(top.action)
+    			actionList.append(child[1])
+    			currentPcost = top.stepCost + child[2]
+    			aStarCost = currentPcost + heuristic(top.currentState, problem)
+    			pQueue.push(Node(childState, actionList, top, child[2], currentPcost), aStarCost)
     util.raiseNotDefined()
 
 

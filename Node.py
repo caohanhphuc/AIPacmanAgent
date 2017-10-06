@@ -1,7 +1,7 @@
 class Node:
-	def __init__(self, currentState, action, parent):
+	def __init__(self, currentState, action, parent, stepCost, pathCost):
 		self.currentState = currentState
 		self.parent = parent
 		self.action = action
-		self.stepCost = 0
-		self.pathCost = 0
+		self.stepCost = stepCost
+		self.pathCost = pathCost
