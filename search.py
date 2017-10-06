@@ -102,6 +102,8 @@ def depthFirstSearch(problem):
         top = stack.pop()
         if (problem.isGoalState(top.currentState) == True):
             return top.action
+        if (top.currentState in explored):
+            continue
         explored.append(top.currentState)
         childList = problem.getSuccessors(top.currentState)
         for child in childList:
@@ -129,11 +131,16 @@ def breadthFirstSearch(problem):
         top = queue.pop()
         if (problem.isGoalState(top.currentState) == True):
             return top.action
+        if (top.currentState in explored):
+            continue
         explored.append(top.currentState)
+        print("Current:  ", top.currentState)
         childList = problem.getSuccessors(top.currentState)
         for child in childList:
             childState = child[0]
+            
             if not childState in explored:
+                print("Child: ", childState)
                 actionList = copy.deepcopy(top.action)
                 actionList.append(child[1])
                 currentPcost = top.stepCost + child[2]
@@ -152,6 +159,8 @@ def uniformCostSearch(problem):
     	top = pQueue.pop()
     	if (problem.isGoalState(top.currentState) == True):
     		return top.action
+        if (top.currentState in explored):
+            continue
     	explored.append(top.currentState)
     	childList = problem.getSuccessors(top.currentState)
     	for child in childList:
@@ -181,6 +190,8 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     	top = pQueue.pop()
     	if (problem.isGoalState(top.currentState) == True):
     		return top.action
+        if (top.currentState in explored):
+            continue
     	explored.append(top.currentState)
     	childList = problem.getSuccessors(top.currentState)
     	for child in childList:
