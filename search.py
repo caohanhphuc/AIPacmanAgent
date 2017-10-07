@@ -183,7 +183,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     pQueue = PriorityQueue();
     explored = []
-    head = Node(problem.getStartState(), list(), None, 0, heuristic(problem.getStartState(), problem))
+    head = Node(problem.getStartState(), list(), None, 0, 0)
     pQueue.push(head, heuristic(problem.getStartState(), problem))
 
     while (pQueue.isEmpty() == False):
@@ -199,7 +199,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     		if not childState in explored:
     			actionList = copy.deepcopy(top.action)
     			actionList.append(child[1])
-    			currentPcost = top.stepCost + child[2]
+    			currentPcost = top.pathCost + child[2]
     			aStarCost = currentPcost + heuristic(top.currentState, problem)
     			pQueue.push(Node(childState, actionList, top, child[2], currentPcost), aStarCost)
     util.raiseNotDefined()
